@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-class MetersToFeet {
+class Practical 1 {
     public static void main(String args[]) {
         Scanner scanner = new Scanner(System.in);
 
