@@ -1,2 +1,6 @@
-# Ignore compiled Java files
 *.class
+*.log
+*.jar
+*.war
+.idea/
+.vscode/
