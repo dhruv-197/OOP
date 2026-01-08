@@ -7,7 +7,6 @@ class Practical3 {
         System.out.print("Enter a single letter: ");
         char ch = scanner.next().charAt(0);
 
-        // Convert to lowercase to make the check case-insensitive
         ch = Character.toLowerCase(ch);
 
         if (ch >= 'a' && ch <= 'z') {
