@@ -1,2 +1,2 @@
 # Java-Codes
-Code • Learn • Improve
+Code • Build • Scale
