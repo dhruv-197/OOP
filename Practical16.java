@@ -15,7 +15,7 @@ class Practical16 {
         double emi = (principal * monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
         System.out.println("Vehicle Loan EMI: " + String.format("%.2f", emi));
     }
-
+        
     void calculateEMI(int principal, int time) {
         double rate = 10.0;
         double monthlyRate = rate / (12 * 100);

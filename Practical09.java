@@ -1,13 +1,13 @@
 import java.util.Scanner;
 
-class Practical9 {
+class Practical09 {
     double width = 1.0;
     double height = 1.0;
 
-    Practical9() {
+    Practical09() {
     }
 
-    Practical9(double width, double height) {
+    Practical09(double width, double height) {
         this.width = width;
         this.height = height;
     }
@@ -29,7 +29,7 @@ class Practical9 {
         System.out.print("Enter height: ");
         double h = input.nextDouble();
 
-        Practical9 rect = new Practical9(w, h);
+        Practical09 rect = new Practical09(w, h);
 
         System.out.println("Area: " + rect.getArea());
         System.out.println("Perimeter: " + rect.getPerimeter());

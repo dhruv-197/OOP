@@ -1,4 +1,4 @@
-class Practical8 {
+class Practical08 {
     public static void main(String args[]) {
 
         if (args.length != 2) {

@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-class Practical2 {
+class Practical02 {
     public static void main(String args[]) {
         Scanner scanner = new Scanner(System.in);
 
