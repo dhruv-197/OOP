@@ -46,7 +46,6 @@ public class Practical24 {
         e.displayDetails();
 
         System.out.println();
-
         System.out.println("Manager Details:");
         m.displayDetails();
     }

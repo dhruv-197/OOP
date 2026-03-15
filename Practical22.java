@@ -27,7 +27,6 @@ public class Practical22 {
 
         Rectangle rectangle = new Rectangle();
         rectangle.getData(10, 6);
-
         System.out.println("Triangle area: " + triangle.area());
         System.out.println("Rectangle area: " + rectangle.area());
     }

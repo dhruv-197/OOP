@@ -13,7 +13,6 @@ class CreditCardPayment extends Payment {
         System.out.println("Payment of Rs. " + amount + " done Using Credit Card");
     }
 }
-
 class UPIPayment extends Payment {
 
     void processPayment(int amount) {

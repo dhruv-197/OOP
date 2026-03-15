@@ -28,7 +28,6 @@ class Car extends Vehicle {
         numberOfSeats = seats;
         ACavailable = ac;
     }
-
     void displayDetails() {
         super.displayDetails();
         System.out.println("Seats: " + numberOfSeats);

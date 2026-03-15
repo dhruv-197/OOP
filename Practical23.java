@@ -11,7 +11,6 @@ class BankAccount {
 
         System.out.println("Account Opened Successfully");
     }
-
     void deposit(double amount) {
         balance = balance + amount;
         System.out.println("Deposited: " + amount);
