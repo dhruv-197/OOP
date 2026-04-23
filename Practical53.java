@@ -1,81 +1,94 @@
-import javafx.animation.AnimationTimer;
-import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Slider;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.stage.Stage;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Graphics;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 
-public class Practical53 extends Application {
-    private double dx = 2.0;
-    private boolean running = false;
+public class Practical53 {
+    private static class BallPanel extends JPanel {
+        private static final int RADIUS = 20;
+        private int x = RADIUS + 10;
+        private int dx = 1;
+        private final JSlider speedSlider;
 
-    @Override
-    public void start(Stage stage) {
-        Pane playArea = new Pane();
-        playArea.setPrefSize(600, 220);
+        BallPanel(JSlider speedSlider) {
+            this.speedSlider = speedSlider;
+            setBackground(new Color(253, 253, 253));
+            setPreferredSize(new Dimension(600, 300));
+        }
 
-        Circle ball = new Circle(20, Color.DODGERBLUE);
-        ball.setCenterX(40);
-        ball.setCenterY(110);
-        playArea.getChildren().add(ball);
-
-        Slider speedSlider = new Slider(1, 10, 3);
-        speedSlider.setPrefWidth(220);
-
-        Button startButton = new Button("Start");
-        Button stopButton = new Button("Stop");
-
-        AnimationTimer timer = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                if (!running) {
-                    return;
-                }
-
-                double speed = speedSlider.getValue();
-                double nextX = ball.getCenterX() + (dx * speed);
-                double radius = ball.getRadius();
-                double width = playArea.getWidth();
-
-                if (nextX - radius <= 0 || nextX + radius >= width) {
-                    dx = -dx;
-                }
-                ball.setCenterX(ball.getCenterX() + (dx * speed));
+        void moveBall() {
+            int width = getWidth();
+            int speed = speedSlider.getValue();
+            if (x + RADIUS >= width) {
+                dx = -1;
+            } else if (x - RADIUS <= 0) {
+                dx = 1;
             }
-        };
-        timer.start();
+            x += (dx * speed);
+            repaint();
+        }
 
-        startButton.setOnAction(e -> running = true);
-        stopButton.setOnAction(e -> running = false);
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            g.setColor(new Color(153, 50, 204));
+            int y = getHeight() / 2;
+            g.fillOval(x - RADIUS, y - RADIUS, RADIUS * 2, RADIUS * 2);
+        }
+    }
 
-        playArea.widthProperty().addListener((obs, oldVal, newVal) -> {
-            double radius = ball.getRadius();
-            if (ball.getCenterX() + radius > newVal.doubleValue()) {
-                ball.setCenterX(newVal.doubleValue() - radius);
+    private static void createAndShowUI() {
+        JFrame frame = new JFrame("Practical 53: Bouncing Ball");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JSlider speedSlider = new JSlider(1, 20, 5);
+        speedSlider.setPaintTicks(true);
+        speedSlider.setPaintLabels(true);
+        speedSlider.setMajorTickSpacing(5);
+        speedSlider.setMinorTickSpacing(1);
+        speedSlider.setPreferredSize(new Dimension(200, 40));
+
+        BallPanel canvas = new BallPanel(speedSlider);
+        Timer timer = new Timer(16, e -> canvas.moveBall());
+
+        JButton startBtn = new JButton("Start");
+        JButton stopBtn = new JButton("Stop");
+
+        startBtn.addActionListener(e -> {
+            if (!timer.isRunning()) {
+                timer.start();
+            }
+        });
+        stopBtn.addActionListener(e -> {
+            if (timer.isRunning()) {
+                timer.stop();
             }
         });
 
-        HBox controls = new HBox(10, startButton, stopButton, speedSlider);
-        controls.setPadding(new Insets(10));
+        JPanel controls = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
+        controls.add(startBtn);
+        controls.add(stopBtn);
+        controls.add(new JLabel("Speed Control:"));
+        controls.add(speedSlider);
 
-        BorderPane root = new BorderPane();
-        root.setCenter(playArea);
-        root.setBottom(controls);
-
-        stage.setScene(new Scene(root, 650, 300));
-        stage.setTitle("Practical 53");
-        stage.show();
+        frame.setLayout(new BorderLayout());
+        frame.add(canvas, BorderLayout.CENTER);
+        frame.add(controls, BorderLayout.SOUTH);
+        frame.setSize(700, 450);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 
     public static void main(String[] args) {
+        SwingUtilities.invokeLater(Practical53::createAndShowUI);
         System.out.println("Dhruv Soni - 240390107005");
-        launch(args);
     }
 }
-

@@ -10,28 +10,19 @@ class Practical06 {
 
         int result = 0;
         int place = 1;
-        int carry = 0;
 
         for (int i = 0; i < 5; i++) {
-            int digit = num % 10;  
+            int digit = num % 10;
             num = num / 10;
 
-            int sum = digit + 1 + carry;
-
-            int newDigit = sum % 10;  
-            carry = sum / 10;       
+            int newDigit = (digit + 1) % 10;
 
             result = result + (newDigit * place);
             place *= 10;
         }
 
-        if (carry > 0) {
-            result = result + (carry * place);
-        }
-
-        System.out.println("New number: " + result);
+        System.out.printf("New number: %05d\n", result);
 
         sc.close();
     }
 }
-

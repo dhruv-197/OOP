@@ -1,50 +1,58 @@
-import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
-public class Practical55 extends Application {
-    private VBox createBar(String label, int percentage, Color color) {
-        double maxHeight = 220;
-        double barHeight = (percentage / 100.0) * maxHeight;
+public class Practical55 {
+    private static class BarChartPanel extends JPanel {
+        private final String[] labels = {"Projects", "Quizzes", "Midterm Exams", "Final Exam"};
+        private final int[] values = {20, 10, 30, 40};
+        private final Color[] colors = {Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE};
 
-        Rectangle bar = new Rectangle(70, barHeight);
-        bar.setFill(color);
+        BarChartPanel() {
+            setPreferredSize(new Dimension(760, 340));
+            setBackground(Color.WHITE);
+        }
 
-        Text caption = new Text(label + " - " + percentage + "%");
-        VBox box = new VBox(8, bar, caption);
-        box.setAlignment(Pos.BOTTOM_CENTER);
-        return box;
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            int chartBottom = getHeight() - 50;
+            int maxHeight = 220;
+            int barWidth = 70;
+            int gap = 90;
+            int startX = 30;
+
+            for (int i = 0; i < values.length; i++) {
+                int barHeight = (int) ((values[i] / 100.0) * maxHeight);
+                int x = startX + i * (barWidth + gap);
+                int y = chartBottom - barHeight;
+
+                g.setColor(colors[i]);
+                g.fillRect(x, y, barWidth, barHeight);
+                g.setColor(Color.BLACK);
+                String label = labels[i] + " - " + values[i] + "%";
+                int labelWidth = g.getFontMetrics().stringWidth(label);
+                int labelX = x + (barWidth - labelWidth) / 2;
+                g.drawString(label, labelX, chartBottom + 20);
+            }
+        }
     }
 
-    @Override
-    public void start(Stage stage) {
-        HBox bars = new HBox(18);
-        bars.setPadding(new Insets(20));
-        bars.setAlignment(Pos.BOTTOM_CENTER);
-
-        bars.getChildren().addAll(
-            createBar("Projects", 20, Color.RED),
-            createBar("Quizzes", 10, Color.BLUE),
-            createBar("Midterm Exams", 30, Color.GREEN),
-            createBar("Final Exam", 40, Color.ORANGE)
-        );
-
-        Scene scene = new Scene(bars, 560, 340);
-        stage.setTitle("Practical 55");
-        stage.setScene(scene);
-        stage.show();
+    private static void createAndShowUI() {
+        JFrame frame = new JFrame("Practical 55");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(new BarChartPanel());
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 
     public static void main(String[] args) {
         System.out.println("Dhruv Soni - 240390107005");
-        launch(args);
+        SwingUtilities.invokeLater(Practical55::createAndShowUI);
     }
 }
 

@@ -2,41 +2,41 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
+import java.awt.GridLayout;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
-public class Practical54 extends Application {
-    @Override
-    public void start(Stage stage) {
-        GridPane grid = new GridPane();
-        grid.setPadding(new Insets(15));
-        grid.setHgap(10);
-        grid.setVgap(10);
+public class Practical54 {
+    private static void createAndShowUI() {
+        JFrame frame = new JFrame("Practical 54");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(420, 260);
+        frame.setLocationRelativeTo(null);
 
-        TextField rollField = new TextField();
-        rollField.setPromptText("Roll No");
-        TextField nameField = new TextField();
-        nameField.setPromptText("Name");
-        TextField ageField = new TextField();
-        ageField.setPromptText("Age");
-        TextField emailField = new TextField();
-        emailField.setPromptText("Email");
-        Button submit = new Button("Submit");
+        JPanel panel = new JPanel(new GridLayout(5, 1, 10, 10));
 
-        grid.add(rollField, 0, 0);
-        grid.add(nameField, 0, 1);
-        grid.add(ageField, 0, 2);
-        grid.add(emailField, 0, 3);
-        grid.add(submit, 0, 4);
+        JTextField rollField = new JTextField();
+        rollField.setToolTipText("Roll No");
+        JTextField nameField = new JTextField();
+        nameField.setToolTipText("Name");
+        JTextField ageField = new JTextField();
+        ageField.setToolTipText("Age");
+        JTextField emailField = new JTextField();
+        emailField.setToolTipText("Email");
+        JButton submit = new JButton("Submit");
 
-        submit.setOnAction(e -> {
+        panel.add(rollField);
+        panel.add(nameField);
+        panel.add(ageField);
+        panel.add(emailField);
+        panel.add(submit);
+
+        submit.addActionListener(e -> {
             try {
                 int rollNo = Integer.parseInt(rollField.getText().trim());
                 int age = Integer.parseInt(ageField.getText().trim());
@@ -52,10 +52,9 @@ public class Practical54 extends Application {
 
                 String data = "RollNo: " + rollNo + ", Name: " + name + ", Age: " + age + ", Email: " + email;
 
-                FileChooser fileChooser = new FileChooser();
-                fileChooser.setTitle("Save Registration");
-                fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
-                File file = fileChooser.showSaveDialog(stage);
+                JFileChooser fileChooser = new JFileChooser();
+                int choice = fileChooser.showSaveDialog(frame);
+                File file = (choice == JFileChooser.APPROVE_OPTION) ? fileChooser.getSelectedFile() : null;
 
                 if (file != null) {
                     try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, true))) {
@@ -64,11 +63,12 @@ public class Practical54 extends Application {
                     }
                 }
 
-                Alert success = new Alert(Alert.AlertType.INFORMATION);
-                success.setTitle("Success");
-                success.setHeaderText("Registration Successful");
-                success.setContentText(data);
-                success.showAndWait();
+                JOptionPane.showMessageDialog(
+                    frame,
+                    "Registration Successful\n" + data,
+                    "Success",
+                    JOptionPane.INFORMATION_MESSAGE
+                );
             } catch (NumberFormatException ex) {
                 showError("Roll No and Age must be integers.");
             } catch (IllegalArgumentException ex) {
@@ -78,22 +78,17 @@ public class Practical54 extends Application {
             }
         });
 
-        stage.setScene(new Scene(grid, 420, 260));
-        stage.setTitle("Practical 54");
-        stage.show();
+        frame.add(panel);
+        frame.setVisible(true);
     }
 
-    private void showError(String msg) {
-        Alert error = new Alert(Alert.AlertType.ERROR);
-        error.setTitle("Validation Error");
-        error.setHeaderText("Input Validation Failed");
-        error.setContentText(msg);
-        error.showAndWait();
+    private static void showError(String msg) {
+        JOptionPane.showMessageDialog(null, msg, "Validation Error", JOptionPane.ERROR_MESSAGE);
     }
 
     public static void main(String[] args) {
         System.out.println("Dhruv Soni - 240390107005");
-        launch(args);
+        SwingUtilities.invokeLater(Practical54::createAndShowUI);
     }
 }
 

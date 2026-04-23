@@ -1,40 +1,43 @@
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.util.Random;
-import javafx.application.Application;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 
-public class Practical52 extends Application {
-    @Override
-    public void start(Stage stage) {
-        VBox root = new VBox(12);
-        root.setAlignment(Pos.CENTER);
+public class Practical52 {
+    private static void createAndShowUI() {
+        JFrame frame = new JFrame("Practical 52");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(450, 300);
+        frame.setLocationRelativeTo(null);
+        frame.setLayout(new GridLayout(5, 1, 0, 12));
 
         Random random = new Random();
-        Font font = Font.font("Times New Roman", FontWeight.BOLD, FontPosture.ITALIC, 22);
+        Font font = new Font("Times New Roman", Font.BOLD | Font.ITALIC, 22);
 
         for (int i = 1; i <= 5; i++) {
-            Text text = new Text("Text " + i);
-            text.setFont(font);
-            text.setFill(Color.color(random.nextDouble(), random.nextDouble(), random.nextDouble()));
-            text.setOpacity(0.3 + (0.7 * random.nextDouble()));
-            root.getChildren().add(text);
+            JLabel label = new JLabel("Text " + i, SwingConstants.CENTER);
+            label.setFont(font);
+            label.setForeground(
+                new Color(
+                    random.nextInt(256),
+                    random.nextInt(256),
+                    random.nextInt(256),
+                    80 + random.nextInt(176)
+                )
+            );
+            frame.add(label);
         }
 
-        stage.setScene(new Scene(root, 450, 300));
-        stage.setTitle("Practical 52");
-        stage.show();
+        frame.setVisible(true);
     }
 
     public static void main(String[] args) {
         System.out.println("Dhruv Soni - 240390107005");
-        launch(args);
+        SwingUtilities.invokeLater(Practical52::createAndShowUI);
     }
 }
 
