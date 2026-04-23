@@ -23,6 +23,7 @@ class Practical13 {
     }
 
     public static void main(String[] args) {
+        System.out.println("Dhruv Soni - 240390107005");
         Practical13 rect1 = new Practical13(4, 40);
         Practical13 rect2 = new Practical13(3.5, 35.9);
 

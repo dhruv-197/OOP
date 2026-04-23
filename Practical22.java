@@ -22,6 +22,7 @@ class Rectangle extends Shape {
 
 public class Practical22 {
     public static void main(String[] args) {
+        System.out.println("Dhruv Soni - 240390107005");
         Triangle triangle = new Triangle();
         triangle.getData(10, 6);
 

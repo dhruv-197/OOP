@@ -24,6 +24,7 @@ class Practical12 {
     }
 
     public static void main(String[] args) {
+        System.out.println("Dhruv Soni - 240390107005");
         Scanner sc = new Scanner(System.in);
 
         Practical12 p1 = new Practical12();

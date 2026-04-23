@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 class Practical06 {
     public static void main(String args[]) {
+        System.out.println("Dhruv Soni - 240390107005");
         Scanner sc = new Scanner(System.in);
 
         System.out.print("Enter a five-digit number: ");
@@ -33,3 +34,4 @@ class Practical06 {
         sc.close();
     }
 }
+

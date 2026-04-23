@@ -27,7 +27,8 @@ public class Result extends Student {
         System.out.printf("Average : %.2f%n", average);
     }
 
-    public static void main(String[] args) {
+    
+        System.out.println("Dhruv Soni - 240390107005");
         Result studentResult = new Result(101, "Dhruv", 85, 90, 88);
         studentResult.displayResult();
     }

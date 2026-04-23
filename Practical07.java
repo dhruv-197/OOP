@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 class Practical07 {
     public static void main(String args[]) {
+        System.out.println("Dhruv Soni - 240390107005");
 
         Scanner sc = new Scanner(System.in);
 
@@ -30,3 +31,4 @@ class Practical07 {
         sc.close();
     }
 }
+

@@ -25,6 +25,7 @@ class Practical16 {
     }
 
     public static void main(String[] args) {
+        System.out.println("Dhruv Soni - 240390107005");
         Practical16 loan = new Practical16();
         Scanner sc = new Scanner(System.in);
 

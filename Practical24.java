@@ -38,6 +38,7 @@ class Manager extends Employee {
 public class Practical24 {
 
     public static void main(String[] args) {
+        System.out.println("Dhruv Soni - 240390107005");
 
         Employee e = new Employee("Rahul", "IT");
         Manager m = new Manager("Amit", "Software", 5, "Bank Project");
